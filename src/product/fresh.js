@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import "../style/product.css";
 import { useDispatch, useSelector } from 'react-redux';
 import { increaseToCart, decreaseToCart } from '../redux/actions/cart-acts';
+import '../style/button.css'; // 导入按钮样式文件
 
 const Fresh = () => {
     const dispatch = useDispatch();
