@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { beverage, fresh, frozen, home, petFood } from '../redux/actions/products-acts';
+import "../style/header.css"
 
 const Header = function () {
 
@@ -40,14 +41,33 @@ const Header = function () {
     }
 
     return (
-        <div>
-            <p>this is the header</p>
-            <button onClick={goToCart}>Cart</button>
-            <button onClick={goToFresh}>Fresh</button>
-            <button onClick={goToBeverage}>Beverage</button>
-            <button onClick={goToFrozen}>Frozen</button>
-            <button onClick={goToHome}>Home</button>
-            <button onClick={goToPetFood}>PetFood</button>
+        <div className="header-container">
+            <div className="header-left">
+                <button className="header-button cart-button" onClick={goToCart}>
+                    Cart
+                </button>
+            </div>
+            <div className="store-name">
+                {/* 在这里放置商店名称 */}
+                <h1>Online Store</h1>
+            </div>
+            <div className="header-right">
+                <button className="header-button fresh-button" onClick={goToFresh}>
+                    Fresh
+                </button>
+                <button className="header-button beverage-button" onClick={goToBeverage}>
+                    Beverage
+                </button>
+                <button className="header-button frozen-button" onClick={goToFrozen}>
+                    Frozen
+                </button>
+                <button className="header-button home-button" onClick={goToHome}>
+                    Home
+                </button>
+                <button className="header-button petFood-button" onClick={goToPetFood}>
+                    PetFood
+                </button>
+            </div>
         </div>
     );
 }

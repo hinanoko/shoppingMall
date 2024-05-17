@@ -4,3 +4,4 @@ export const GET_FROZEN = 'GET_FROZEN';
 export const GET_HOME = 'GET_HOME';
 export const GET_PETFOOD = 'GET_PETFOOD';
 export const GET_SEARCH = 'GET_SEARCH';
+export const INPUT_ITEM = 'INPUT_ITEM';

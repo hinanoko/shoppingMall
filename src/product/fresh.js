@@ -68,12 +68,14 @@ const Fresh = () => {
             {items.length > 0 ? (
                 items.map((item) => (
                     <div key={item.product_id} className="grid-item">
-                        <img src={getImagePath(item.product_id)} alt={item.product_name} width="200" height="150"></img>
+                        <img src={getImagePath(item.product_id)} alt={item.product_name} width="190" height="150"></img>
                         <p>Name: {item.product_name}</p>
                         <p>Price: {item.unit_price}</p>
                         {/* 可根据实际数据结构添加更多展示信息 */}
-                        <button onClick={() => increase(item)}>+</button>
-                        <button onClick={() => decrease(item)}>-</button>
+                        <div className="button-container">
+                            <button className="button-75" onClick={() => increase(item)}><span className="text">+</span></button>
+                            <button className="button-75" onClick={() => decrease(item)}><span className="text">-</span></button>
+                        </div>
                     </div>
                 ))
             ) : (

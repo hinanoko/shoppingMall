@@ -1,0 +1,23 @@
+
+.bar7 {background: #7BA7AB;}
+        .bar7 form {
+            height: 42px;
+        }
+        .bar7 input {
+            width: 200px;
+            border-radius: 42px;
+            border: 2px solid #324B4E;
+            background: #F9F0DA;
+            transition: .3s linear;
+            float: right;
+        }
+        .bar7 button {
+            background: none;
+            top: -2px;
+            right: 0;
+        }
+        .bar7 button:before{
+          content: "\f002";
+          font-family: FontAwesome;
+          color: #324b4e;
+        }

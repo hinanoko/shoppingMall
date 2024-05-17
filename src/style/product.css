@@ -2,15 +2,22 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
+    border-radius: 8px;
 }
 
 .grid-item {
     border: 1px solid #ccc;
     padding: 10px;
+    border-radius: 8px;
+    background-color: cadetblue;
 }
 
 .product-image {
     width: 1px;
     height: auto;
-    max-width: 100%;
+    max-width: 1px
+}
+
+.grid-item:hover{
+background-color: #ccc;
 }

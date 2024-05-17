@@ -1,4 +1,4 @@
-import { GET_BEVERAGE, GET_FRESH, GET_FROZEN, GET_HOME, GET_PETFOOD, GET_SEARCH } from "../constants/products-const";
+import { GET_BEVERAGE, GET_FRESH, GET_FROZEN, GET_HOME, GET_PETFOOD, GET_SEARCH, INPUT_ITEM } from "../constants/products-const";
 
 
 export const fresh = () => ({
@@ -24,3 +24,8 @@ export const petFood = () => ({
 export const searchItem = () => ({
     type: GET_SEARCH,
 });
+
+export const inputItem = (searchProduct) => ({
+    type: INPUT_ITEM,
+    newProduct: searchProduct
+})

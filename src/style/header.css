@@ -1,0 +1,80 @@
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+.header-button {
+    margin: 0 10px;
+    padding: 15px 20px 10px 22px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: hsl(158, 71%, 28%);
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    background-repeat: no-repeat;
+    background-position: 20px 5px;
+    background-size: 40px;
+}
+
+.header-button:hover {
+    background-color: #0056b3;
+}
+
+.cart-button {
+    background-image: url('../icons/cart_transparent.png');
+    padding-top: 50px;
+    color: yellow;
+}
+
+.fresh-button {
+    background-image: url('../icons/fresh_transparent.png');
+    padding-top: 50px;
+}
+
+.beverage-button {
+    background-image: url('../icons/beverage_transparent.png');
+    padding-top: 50px;
+}
+
+.frozen-button {
+    background-image: url('../icons/frozen_transparent.png');
+    padding-top: 50px;
+}
+
+.home-button {
+    background-image: url('../icons/home_transparent.png');
+    padding-top: 50px;
+}
+
+.petFood-button {
+    background-image: url('../icons/pet-food_transparent.png');
+    padding-top: 50px;
+}
+
+.store-name h1 {
+    font-family: 'Righteous', cursive;
+    font-size: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.store-name h1 span {
+    margin: 0 10px;
+}

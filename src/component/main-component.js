@@ -39,10 +39,16 @@ const Main = function () {
                 <PetFood></PetFood>
             </div>
         )
+    } else if (product === "SEARCH") {
+        return (
+            <div>
+                <SearchItem></SearchItem>
+            </div>
+        )
     } else {
         return (
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-                <img src={imgSrc} style={{ display: 'block' }}></img>
+                <img src={imgSrc} style={{ display: 'block', height: "600px", width: "1000px", marginTop: '-50px' }}></img>
             </div>
         )
     }
