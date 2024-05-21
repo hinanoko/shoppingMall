@@ -1,3 +1,54 @@
+.layout {
+    width: 1400px;
+    height: 800px;
+    border-radius: 10px;
+    padding: 30px;
+    display: grid;
+    grid-gap: 100px;
+    background-color: hsl(0, 0%, 100%); /* layout 的背景颜色 */
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.header {
+    grid-row: 1/2;
+    grid-column: 1/6;
+    height: 100px;
+    background-color: hsl(158, 71%, 28%); /* header 的背景颜色 */
+    border-radius: 10px; /* 设置侧边栏的边框圆角 */
+    display: flex; /* 添加 flex 布局 */
+    align-items: center; /* 垂直居中对齐 */
+    justify-content: center; /* 水平居中对齐 */
+    padding: 10px 20px; /* 添加左右内边距 */
+}
+
+.main {
+    grid-row: 2/14;
+    grid-column: 2/6;
+    background-color: #e7085200; /* main 的背景颜色 */
+    border-radius: 10px; /* 设置侧边栏的边框圆角 */
+    margin-top: 20px;
+}
+
+.store-name h1 {
+    font-family: 'Righteous', cursive;
+    font-size: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.store-name h1 span {
+    margin: 0 10px;
+}
+
+.total-price {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+
 .cart-table {
     width: 100%;
     border-collapse: collapse;
@@ -30,7 +81,18 @@
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    margin: 4px 2px;
+    margin-top: 20px;
     cursor: pointer;
-    border-radius: 8px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.pay-button:hover {
+    background-color: #45a049;
+}
+
+.pay-button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
 }

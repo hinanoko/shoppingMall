@@ -77,13 +77,6 @@ const Cart = () => {
                 console.log(error);
             });
 
-
-        /* axios.post('http://localhost:8001/cart/addItem', itemsToSave).then(response => {
-            //console.log(response.data.success)
-        }).catch(error => {
-            console.log(error)
-        }) */
-
         console.log("1111111111111111111111", itemsToKeep)
         console.log("22222222222222222222222", itemsToUpdate)
 
@@ -100,42 +93,64 @@ const Cart = () => {
         })
     }
 
+    const calculateTotalPrice = () => {
+        let totalPrice = 0;
+        showItemRes.forEach(item => {
+            totalPrice += item.unit_price * item.product_number;
+        });
+        return totalPrice.toFixed(2);
+    };
+
     const goToPayment = function () {
         navigate('/payment')
     }
 
     return (
         <div>
-            <table className="cart-table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Product ID</th>
-                        <th>Product Name</th>
-                        <th>Product Number</th>
-                        <th>Unit Price</th>
-                        <th>Unit Quantity</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {showItemRes.map(item => (
-                        <tr key={item.id}>
-                            <td>{item.id}</td>
-                            <td>{item.product_id}</td>
-                            <td>{item.product_name}</td>
-                            <td>{item.product_number}</td>
-                            <td>{item.unit_price}</td>
-                            <td>{item.unit_quantity}</td>
-                            <td>
-                                <button onClick={() => handleRemoveItem(item.product_id)}>Remove</button>
-                            </td>
+            <div className="header">
+                <div className="store-name">
+                    {/* 在这里放置商店名称 */}
+                    <h1>Online Store Cart</h1>
+                </div>
+            </div>
+            <div className="main">
+                <p style={{ fontSize: "25px", color: "brown" }}>your information of the cart:</p>
+                <table className="cart-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Product ID</th>
+                            <th>Product Name</th>
+                            <th>Product Number</th>
+                            <th>Unit Price</th>
+                            <th>Unit Quantity</th>
+                            <th>Actions</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {showItemRes.map(item => (
+                            <tr key={item.id}>
+                                <td>{item.id}</td>
+                                <td>{item.product_id}</td>
+                                <td>{item.product_name}</td>
+                                <td>{item.product_number}</td>
+                                <td>{item.unit_price}</td>
+                                <td>{item.unit_quantity}</td>
+                                <td>
+                                    <button onClick={() => handleRemoveItem(item.product_id)}>Remove</button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
 
-            <button onClick={() => goToPayment()}>GoToPay</button>
+                <div className="total-price">
+                    <p>Total Price: ${calculateTotalPrice()}</p>
+                </div>
+                <div className="pay-button-container">
+                    <button className="pay-button" onClick={() => goToPayment()}>GoToPay</button>
+                </div>
+            </div>
         </div>
     );
 };
