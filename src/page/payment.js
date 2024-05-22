@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import "../style/payment.css"
+import bank1 from "../images/bank1.png"
+import bank2 from "../images/bank2.png"
 
 const Payment = () => {
 
@@ -12,7 +14,10 @@ const Payment = () => {
         street: '',
         city: '',
         state: '',
-        phone: ''
+        phone: '',
+        selectedCard: null,
+        cardNumber: '',
+        cardCvv: ''
     });
 
     const handleChange = (e) => {
@@ -23,19 +28,36 @@ const Payment = () => {
         }));
     };
 
+    const handleCardChange = (e) => {
+        const selectedCard = e.target.value;
+        setFormData(prevState => ({
+            ...prevState,
+            selectedCard
+        }));
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const { name, email, street, city, state, phone } = formData;
+        const { name, email, street, city, state, phone, selectedCard, cardNumber, cardCvv } = formData;
 
-        if (name && email && street && city && state && phone) {
+        if (name && email && street && city && state && phone && selectedCard) {
+            const cardNumberRegex = /^\d{16}$/;
+            const cardCvvRegex = /^\d{3}$/;
 
-            //console.log(formData);
-            axios.delete('http://localhost:8001/cart/deleteAll')
-            navigate('/confirm')
+            if (selectedCard === 'card1' && cardNumberRegex.test(cardNumber) && cardCvvRegex.test(cardCvv)) {
+                // 提交表单
+                axios.delete('http://localhost:8001/cart/deleteAll')
+                navigate('/confirm')
+            } else if (selectedCard === 'card2' && cardNumberRegex.test(cardNumber) && cardCvvRegex.test(cardCvv)) {
+                // 提交表单
+                axios.delete('http://localhost:8001/cart/deleteAll')
+                navigate('/confirm')
+            } else {
+                alert('Please enter a valid card number and CVV.');
+            }
         } else {
-
-            alert('Please fill in all required fields.');
+            alert('Please fill in all required fields and select a card.');
         }
     };
 
@@ -87,26 +109,26 @@ const Payment = () => {
                     <div class="card-options">
                         <div class="card-option">
                             <div class="card-checkbox">
-                                <input type="radio" id="card1" name="card" checked></input>
+                                <input type="radio" id="card1" name="card" value="card1" checked={formData.selectedCard === 'card1'} onChange={handleCardChange}></input>
                                 <label for="card1"></label>
                             </div>
                             <div class="card-image">
-                                <img src="card1.png" alt="Card 1"></img>
+                                <img src={bank1} alt="Card 1"></img>
                             </div>
-                            <div class="card-number">1234 5678 9012 3456</div>
-                            <div class="card-cvv">123</div>
+                            <input type="text" class="card-number" placeholder="card number" maxlength="19" name="card1Number" value={formData.card1Number} onChange={handleChange} disabled={formData.selectedCard !== 'card1'} />
+                            <input type="text" class="card-cvv" placeholder="CVV" maxlength="3" name="card1Cvv" value={formData.card1Cvv} onChange={handleChange} disabled={formData.selectedCard !== 'card1'} />
                         </div>
 
                         <div class="card-option">
                             <div class="card-checkbox">
-                                <input type="radio" id="card2" name="card"></input>
+                                <input type="radio" id="card2" name="card" value="card2" checked={formData.selectedCard === 'card2'} onChange={handleCardChange}></input>
                                 <label for="card2"></label>
                             </div>
                             <div class="card-image">
-                                <img src="card2.png" alt="Card 2"></img>
+                                <img src={bank2} alt="Card 2"></img>
                             </div>
-                            <div class="card-number">5678 9012 3456 7890</div>
-                            <div class="card-cvv">456</div>
+                            <input type="text" class="card-number" placeholder="card number" maxlength="19" name="card2Number" value={formData.card2Number} onChange={handleChange} disabled={formData.selectedCard !== 'card2'} />
+                            <input type="text" class="card-cvv" placeholder="CVV" maxlength="3" name="card2Cvv" value={formData.card2Cvv} onChange={handleChange} disabled={formData.selectedCard !== 'card2'} />
                         </div>
                     </div>
                     <button type="submit" className="submit-button">Submit</button>

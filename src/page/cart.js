@@ -1,9 +1,9 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import axios, { all } from 'axios'
+import axios from 'axios'
 import { clearTheCart } from "../redux/actions/cart-acts";
 import { useNavigate } from "react-router-dom";
-import '../style/cart.css'; // 导入样式文件
+import '../style/cart.css';
 
 const Cart = () => {
     const allItems = [
@@ -19,6 +19,7 @@ const Cart = () => {
     const filteredItems = allItems.filter(itemId => cartItems[itemId].quantity > 0);
 
     const [showItemRes, setShowItemRes] = useState([]);
+    const [isCartEmpty, setIsCartEmpty] = useState(true);
 
     const dispatch = useDispatch();
 
@@ -66,6 +67,7 @@ const Cart = () => {
                         axios.get('http://localhost:8001/cart/takeItem')
                             .then(response => {
                                 setShowItemRes(response.data.allItemRes);
+                                setIsCartEmpty(response.data.allItemRes.length === 0);
                             })
                             .catch(error => {
                                 console.log(error);
@@ -82,6 +84,13 @@ const Cart = () => {
 
         dispatch(clearTheCart())
     }, []);
+
+    const getImagePath = (productName) => {
+        const cleanedProductName = productName.replace(/^ID/, '');
+
+        // 在这里根据产品名称构建动态图片路径
+        return require(`../images/${cleanedProductName}.jpg`);
+    };
 
     const handleRemoveItem = function (id) {
         //console.log(id)
@@ -101,6 +110,35 @@ const Cart = () => {
         return totalPrice.toFixed(2);
     };
 
+    const clearCart = function () {
+        axios.delete(`http://localhost:8001/cart/deleteAll`).then(response => {
+            console.log(response)
+            window.location.reload(); // 刷新页面
+        }).catch(error => {
+            console.log(error)
+        })
+    }
+
+    const addOneItem = function (id) {
+        const productAdd = ({ productId: id })
+        axios.post(`http://localhost:8001/cart/addOne`, productAdd).then(response => {
+            console.log(response)
+            window.location.reload();
+        }).catch(error => {
+            console.log(error)
+        })
+    }
+
+    const decreaseItem = function (id) {
+        const productAdd = ({ productId: id })
+        axios.post(`http://localhost:8001/cart/decreaseOne`, productAdd).then(response => {
+            console.log(response)
+            window.location.reload();
+        }).catch(error => {
+            console.log(error)
+        })
+    }
+
     const goToPayment = function () {
         navigate('/payment')
     }
@@ -109,46 +147,53 @@ const Cart = () => {
         <div>
             <div className="header">
                 <div className="store-name">
-                    {/* 在这里放置商店名称 */}
                     <h1>Online Store Cart</h1>
                 </div>
             </div>
             <div className="main">
                 <p style={{ fontSize: "25px", color: "brown" }}>your information of the cart:</p>
-                <table className="cart-table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Product ID</th>
-                            <th>Product Name</th>
-                            <th>Product Number</th>
-                            <th>Unit Price</th>
-                            <th>Unit Quantity</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {showItemRes.map(item => (
-                            <tr key={item.id}>
-                                <td>{item.id}</td>
-                                <td>{item.product_id}</td>
-                                <td>{item.product_name}</td>
-                                <td>{item.product_number}</td>
-                                <td>{item.unit_price}</td>
-                                <td>{item.unit_quantity}</td>
-                                <td>
-                                    <button onClick={() => handleRemoveItem(item.product_id)}>Remove</button>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+                <div className="item-header">
+                    <span className="item-label-Image">Image</span>
+                    <span className="item-label-Detail">Details</span>
+                    <span className="item-label">Total</span>
+                    <span className="item-label-Remove">Quantity</span>
+                    <span className="item-label-Action">Action</span>
+                </div>
+                <div className="cart-items">
+                    {showItemRes.map(item => (
+                        <div className="cart-item" key={item.id}>
+                            <div className="item-image">
+                                <img src={getImagePath(item.product_id)} alt={item.product_name} />
+                            </div>
+                            <div className="item-details">
+                                <h3>{item.product_name}</h3>
+                                <p>Unit Price: ${item.unit_price}</p>
+                                <p>Unit Quantity: {item.unit_quantity}</p>
+                            </div>
+                            <div className="item-total-price">
+                                <span>Total: ${(item.product_number * item.unit_price).toFixed(2)}</span>
+                            </div>
+                            <div className="quantity-controls">
+                                <button className="quantity-btn" onClick={() => decreaseItem(item.product_id)}>-</button>
+                                <span className="quantity-value">{item.product_number}</span>
+                                <button className="quantity-btn" onClick={() => { addOneItem(item.product_id) }}>+</button>
+                            </div>
+                            <div className="remove-button">
+                                <button onClick={() => handleRemoveItem(item.product_id)}>
+                                    <span className="icon-container"></span>
+                                    <span className="text-container">Remove</span>
+                                </button>
+                            </div>
+                        </div>
+                    ))}
+                </div>
 
                 <div className="total-price">
                     <p>Total Price: ${calculateTotalPrice()}</p>
                 </div>
                 <div className="pay-button-container">
-                    <button className="pay-button" onClick={() => goToPayment()}>GoToPay</button>
+                    <button className="clear-button" onClick={() => clearCart()}>Clear</button>
+                    <button className="pay-button" onClick={() => goToPayment()} disabled={isCartEmpty}>GoToPay</button>
                 </div>
             </div>
         </div>

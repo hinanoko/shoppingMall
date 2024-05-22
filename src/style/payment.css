@@ -141,12 +141,26 @@
     height: auto;
   }
   
-  .card-number {
-    font-weight: bold;
+  .card-number,
+  .card-cvv {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
     margin-top: 10px;
   }
   
+  .card-number {
+    width: 200px;
+  }
+  
   .card-cvv {
-    font-style: italic;
-    margin-top: 5px;
-  }  
+    width: 80px;
+  }
+  
+  .card-number:focus,
+  .card-cvv:focus {
+    outline: none;
+    border-color: #4d90fe;
+    box-shadow: 0 0 5px rgba(77, 144, 254, 0.5);
+  }
